@@ -62,7 +62,7 @@ def make_animation(data_left, data_right, fname):
     
     # Complete the animation and save it
     animation = camera.animate(interval= 600, repeat = True, repeat_delay = 500)
-    animation.save(fname,  writer = 'imagemagick')
+    animation.save('docs/'+fname,  writer = 'imagemagick')
 
     
 # main function for this Python code
@@ -78,8 +78,8 @@ if __name__ == "__main__":
     Ngames = np.uint64(args.Ngames)
     fname = args.Read_From
     
-    results = np.loadtxt(fname, delimiter = ',')
-    expected_dist = np.loadtxt('unbiased_dist.txt', delimiter = ',')
+    results = np.loadtxt('data/'+fname, delimiter = ',')
+    expected_dist = np.loadtxt('data/unbiased_dist.txt', delimiter = ',')
     
     # create the animation
     make_animation(data_left = expected_dist, data_right = results, fname='total.gif')
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     ax.set_xlabel('Board Tile')
     ax.legend(loc='upper right')
     ax.set_ylabel('Probability')
-    fig.savefig('dist_compare.pdf')
+    fig.savefig('docs/dist_compare2.pdf')
     
     # Perform the chi-squared test
     chisq, p = chisquare(f_obs = obs_dist,f_exp = expected_dist)

@@ -69,6 +69,6 @@ if __name__ == "__main__":
     results_biased = game_biased.play_games(Nturns = Nturns, Ngames = Ngames, norm = True)
 
     # Save the normalized results
-    np.savetxt('unbiased_dist.txt', results_fair, delimiter = ',')
-    np.savetxt(file_name, results_biased, delimiter = ',')
+    np.savetxt('data/unbiased_dist.txt', results_fair, delimiter = ',')
+    np.savetxt('data/'+file_name, results_biased, delimiter = ',')
     
