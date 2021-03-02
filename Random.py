@@ -1,11 +1,9 @@
-#! /usr/bin/env python
+# File:     Random.py
+# Author:   Kurt Hamblin
+# Description:  Random() class that can generate random data
 
 import numpy as np
 
-#################
-# Random class
-#################
-# class that can generate random numbers
 class Random:
     """A random number generator class"""
 
@@ -38,11 +36,37 @@ class Random:
 
     # function returns a random floating point number between (0, 1) (uniform)
     def rand(self):
+        """ Generate random float on (0,1) """
         return 5.42101086242752217E-20 * self.int64()
+    
+    # Peforms a die roll
+    def roll_die(self, Nsides = 6, weights = None):
+        """ Roll a die with Nsides and optional bias"""
+        # Generate a random float from 0->1
+        rand_num = self.rand()
         
-    # function returns a random integer from 1 to N (uniform)
-    def int(self, N):
-        rand_num = self.rand()*N
-        return math.ceil(rand_num)
+        # If weights are not provided, we roll a fair die
+        if weights is None:
+            # Divide 0->1 evenly into slices of width 1/Nsides
+            ch = 1 / Nsides
+            
+            # We iterate through, summing up the current and previous bins until the random float is less than the current sum
+            for i in range(Nsides):
+                if rand_num < ch*(i+1):
+                    # reurn (i+1) because range(Nsides) starts at 0 but the first index 0 corresponds to side 1, and so on
+                    return i + 1
+                    
+        # If weights are provided, we use them
+        else:
+            # Initilize the total count
+            total = 0
+            # Now we iterate through as above, and add the current weight to the total until the random float is less than the total
+            for i in range(Nsides):
+                total += weights[i]
+                if rand_num < total:
+                    # reurn (i+1) because range(Nsides) starts at 0 but the first index 0 corresponds to side 1, and so on
+                    return i + 1
 
+
+        
         

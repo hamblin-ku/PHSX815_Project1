@@ -37,3 +37,5 @@
 # General Python
 __pycache__/
 *.py~
+total
+convert.py
